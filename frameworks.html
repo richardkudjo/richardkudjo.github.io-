@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AOMS &amp; ICM Frameworks | Richard Kudjo Akrong</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080d14;
+      --bg2:       #0e1520;
+      --bg3:       #131c2b;
+      --gold:      #c8a96e;
+      --gold-dim:  #8a7248;
+      --white:     #f0ece3;
+      --muted:     #7a8499;
+      --border:    #1e2d42;
+      --accent:    #2563a8;
+      --font-head: 'Fraunces', Georgia, serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(8, 13, 20, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      height: 62px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active {
+      color: var(--white);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 130px 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(37, 99, 168, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 168, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    .page-header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .page-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-tag::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    h1 span { color: var(--gold); }
+
+    .page-intro {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 620px;
+      line-height: 1.85;
+      font-weight: 300;
+    }
+
+    /* SECTIONS */
+    section { padding: 4.5rem 2rem; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.15;
+    }
+
+    h3 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+
+    /* FRAMEWORK HERO BLOCK */
+    .framework-block {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .framework-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2rem 2.25rem;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .framework-number {
+      font-family: var(--font-mono);
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: var(--border);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .framework-id {
+      flex-shrink: 0;
+    }
+
+    .framework-id .fw-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .framework-id .fw-name {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .framework-id .fw-full {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    .framework-body {
+      padding: 2.25rem;
+      background: var(--bg);
+    }
+
+    .framework-body p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+    }
+
+    .framework-body p:last-of-type { margin-bottom: 0; }
+
+    .framework-body strong { color: var(--white); font-weight: 600; }
+
+    /* PROBLEM / SOLUTION SPLIT */
+    .ps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin: 2rem 0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .ps-cell {
+      background: var(--bg2);
+      padding: 1.75rem;
+    }
+
+    .ps-cell .ps-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .ps-cell h3 {
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .ps-cell p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* HOW IT WORKS STEPS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .step-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .step-card:hover { border-color: var(--gold-dim); }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+    }
+
+    .step-card h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .step-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* METRICS ROW */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .metric-chip {
+      text-align: center;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+    }
+
+    .metric-chip .mn {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .metric-chip .ml {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      line-height: 1.4;
+    }
+
+    /* DOMAIN GRID (ICM) */
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .domain-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.4rem;
+      transition: border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .domain-card:hover { border-color: var(--gold-dim); }
+
+    .domain-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .domain-card:hover::after { opacity: 1; }
+
+    .domain-num {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+    }
+
+    .domain-card h4 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+
+    .domain-card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* PUBLICATION TIE */
+    .pub-tie {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      padding: 1.5rem 1.75rem;
+      margin-top: 2rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .pub-tie-icon {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.5rem;
+      border-radius: 2px;
+      flex-shrink: 0;
+      letter-spacing: 0.06em;
+      margin-top: 0.1rem;
+    }
+
+    .pub-tie-text strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--white);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .pub-tie-text span {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .pub-tie-text a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    .pub-tie-text a:hover { text-decoration: underline; }
+
+    /* DIVIDER */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* COMPARISON TABLE */
+    .comparison {
+      margin-top: 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .comparison-header {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-header div {
+      padding: 0.9rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    .comparison-row:last-child { border-bottom: none; }
+    .comparison-row:hover { background: var(--bg2); }
+
+    .comparison-row div {
+      padding: 0.85rem 1.25rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+      border-right: 1px solid var(--border);
+    }
+
+    .comparison-row div:last-child { border-right: none; }
+    .comparison-row div:first-child { color: var(--white); font-weight: 500; }
+
+    .check { color: var(--gold); }
+    .cross { color: var(--muted); opacity: 0.4; }
+
+    /* PAGE NAV */
+    .page-nav {
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .page-nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .page-nav a {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity 0.2s;
+    }
+
+    .page-nav a:hover { opacity: 0.7; }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.74rem; }
+      .ps-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .metrics-row { grid-template-columns: repeat(3, 1fr); }
+      .domain-grid { grid-template-columns: 1fr 1fr; }
+      .framework-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .framework-number { font-size: 1.8rem; }
+      .comparison-header,
+      .comparison-row { grid-template-columns: 1.2fr 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .domain-grid { grid-template-columns: 1fr; }
+      .metrics-row { grid-template-columns: 1fr; }
+      .nav-links a { font-size: 0.68rem; }
+      .nav-links { gap: 0.6rem; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-tag   { animation: fadeUp 0.45s ease both 0.1s; }
+    h1          { animation: fadeUp 0.45s ease both 0.2s; }
+    .page-intro { animation: fadeUp 0.45s ease both 0.32s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">RKA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="frameworks.html" class="active">Frameworks</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-inner">
+      <div class="page-tag">Proprietary Frameworks</div>
+      <h1>AOMS &amp; <span>ICM</span></h1>
+      <p class="page-intro">
+        Two frameworks developed from 15 years of field practice across 28 industrial projects.
+        Both are peer-reviewed, field-tested, and designed to address specific,
+        measurable gaps in U.S. industrial infrastructure.
+      </p>
+    </div>
+  </div>
+
+  <!-- FRAMEWORK 01: AOMS -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Framework 01</div>
+
+      <div class="framework-block">
+        <div class="framework-header">
+          <div class="framework-number">01</div>
+          <div class="framework-id">
+            <div class="fw-tag">Automated Operations Management System</div>
+            <div class="fw-name">AOMS</div>
+            <div class="fw-full">Predictive Maintenance in Food Processing Plants &mdash; Field-Validated Framework Based on ISO 13374 Condition Monitoring Architecture</div>
+          </div>
+        </div>
+        <div class="framework-body">
+          <p>
+            AOMS is a predictive maintenance framework structured around
+            <strong>ISO 13374 Parts 1 through 4</strong>, incorporating ISO 20816-3:2022,
+            IEEE 1415-2006, ANSI/ISA-18.2-2016, and ISA-TR18.2.3-2024. It integrates
+            <strong>Industrial IoT sensor networks</strong> with <strong>machine learning diagnostics</strong>
+            to detect equipment degradation before failure occurs, converting reactive
+            maintenance schedules into data-driven, condition-based interventions
+            specifically validated for food processing environments.
+          </p>
+          <p>
+            AOMS was developed and validated across 28 manufacturing facilities in 13 countries,
+            including 14 food and beverage manufacturing plants within a single multinational
+            network. It does not require full infrastructure replacement. It layers onto
+            existing PLC and SCADA systems, making it practical for U.S. small and
+            medium-sized food manufacturing enterprises (SMFMEs) that cannot afford
+            complete system overhauls.
+          </p>
+        </div>
+      </div>
+
+      <!-- PROBLEM / SOLUTION -->
+      <h3 style="margin-bottom: 1rem; color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400;">The Problem AOMS Solves</h3>
+      <div class="ps-grid">
+        <div class="ps-cell">
+          <div class="ps-label">The Problem</div>
+          <h3>Unplanned Downtime Costs U.S. Manufacturers Billions Annually</h3>
+          <p>
+            Equipment failures in food processing plants are rarely random. They follow
+            detectable patterns. Without real-time monitoring, plants rely on fixed
+            maintenance schedules that either over-service equipment unnecessarily
+            or miss failures entirely. The result is lost production, spoiled product,
+            and regulatory exposure.
+          </p>
+        </div>
+        <div class="ps-cell">
+          <div class="ps-label">The Solution</div>
+          <h3>AOMS Detects Failure Before It Happens</h3>
+          <p>
+            By placing IIoT sensors at critical process points and feeding that data
+            into trained ML diagnostic models, AOMS identifies anomalies 48 to 72 hours
+            before they become failures. Maintenance teams receive prioritized alerts,
+            allowing targeted interventions rather than full-line shutdowns.
+          </p>
+        </div>
+      </div>
+
+      <!-- HOW IT WORKS -->
+      <h3 style="margin: 2rem 0 0.5rem; color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400;">How AOMS Works</h3>
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-num">STEP 01</div>
+          <h4>Sensor Integration</h4>
+          <p>IIoT sensors attach to critical process equipment. They continuously stream vibration, temperature, pressure, and flow data to a central analytics layer.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 02</div>
+          <h4>ML Diagnostics</h4>
+          <p>Machine learning models trained on equipment baseline data analyze incoming sensor streams in real time, flagging deviations that indicate early-stage degradation.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 03</div>
+          <h4>Prioritized Alerts</h4>
+          <p>Maintenance teams receive ranked alerts with failure probability scores, expected time-to-failure estimates, and recommended interventions. No false-alarm overload.</p>
+        </div>
+      </div>
+
+      <!-- METRICS -->
+      <div class="metrics-row">
+        <div class="metric-chip">
+          <div class="mn">87%</div>
+          <div class="ml">OEE achieved, up from 68% baseline, exceeding 85% global benchmark</div>
+        </div>
+        <div class="metric-chip">
+          <div class="mn">45%</div>
+          <div class="ml">Reduction in unplanned downtime, sustained over 6-year record</div>
+        </div>
+        <div class="metric-chip">
+          <div class="mn">90%</div>
+          <div class="ml">Reduction in emergency repair incidents at select facilities</div>
+        </div>
+      </div>
+
+      <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--muted);">
+        For the full peer-reviewed publication record connected to this body of work,
+        <a href="research.html" style="color: var(--gold); text-decoration: none;">visit the Research page &#8594;</a>
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- FRAMEWORK 02: ICM -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Framework 02</div>
+
+      <div class="framework-block">
+        <div class="framework-header">
+          <div class="framework-number">02</div>
+          <div class="framework-id">
+            <div class="fw-tag">Integrated Competitiveness Model</div>
+            <div class="fw-name">ICM</div>
+            <div class="fw-full">Bridging Industry 4.0 and Industry 5.0 in Manufacturing</div>
+          </div>
+        </div>
+        <div class="framework-body">
+          <p>
+            ICM is a six-domain competitiveness model that gives manufacturing operators
+            a structured, practical path to digital transformation. It bridges the gap
+            between <strong>Industry 4.0 automation</strong> and the human-centric
+            principles of <strong>Industry 5.0</strong>, without requiring a complete
+            infrastructure overhaul.
+          </p>
+          <p>
+            Most digital transformation frameworks are designed for large enterprises
+            with dedicated IT departments and large capital budgets. ICM was built for
+            the operational reality of U.S. small and mid-size manufacturers, where
+            budget constraints, legacy equipment, and workforce limitations are the norm.
+            It provides a domain-by-domain assessment and improvement roadmap that
+            plants can implement incrementally.
+          </p>
+        </div>
+      </div>
+
+      <!-- PROBLEM / SOLUTION -->
+      <h3 style="margin-bottom: 1rem; color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400;">The Problem ICM Solves</h3>
+      <div class="ps-grid">
+        <div class="ps-cell">
+          <div class="ps-label">The Problem</div>
+          <h3>Most U.S. SME Manufacturers Are Stuck Between Industry 4.0 and 5.0</h3>
+          <p>
+            Industry 4.0 adoption in U.S. manufacturing has been uneven. Small and
+            mid-size plants often have partial automation, disconnected data systems,
+            and no clear roadmap for what comes next. Industry 5.0 adds new demands
+            around human-machine collaboration and sustainability. The gap between
+            where most plants are and where they need to be is wide and growing.
+          </p>
+        </div>
+        <div class="ps-cell">
+          <div class="ps-label">The Solution</div>
+          <h3>ICM Maps the Gap and Defines the Steps</h3>
+          <p>
+            ICM assesses a plant across six operational domains, scores each domain
+            against an Industry 5.0 readiness benchmark, and produces a prioritized
+            improvement roadmap. Each domain has defined entry points for both
+            legacy and modern infrastructure, so plants at any maturity level
+            can start immediately.
+          </p>
+        </div>
+      </div>
+
+      <!-- SIX DOMAINS -->
+      <h3 style="margin: 2rem 0 0.5rem; color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400;">The Six Domains</h3>
+      <div class="domain-grid">
+        <div class="domain-card">
+          <div class="domain-num">DOMAIN 01</div>
+          <h4>Smart Automation</h4>
+          <p>Integration of the AOMS predictive maintenance framework and IIoT systems to automate condition monitoring, fault detection, and maintenance scheduling across production equipment.</p>
+        </div>
+        <div class="domain-card">
+          <div class="domain-num">DOMAIN 02</div>
+          <h4>Energy Management</h4>
+          <p>Power quality optimization, power factor correction, and real-time energy monitoring aligned with ISO 50001. Validated outcomes include $1.25 million in annual energy savings and a 15.5% reduction in electricity consumption per unit produced.</p>
+        </div>
+        <div class="domain-card">
+          <div class="domain-num">DOMAIN 03</div>
+          <h4>Safety and Compliance</h4>
+          <p>Remote operation systems for medium-voltage switchgear, arc flash elimination, and FSMA preventive control documentation aligned with 21 CFR Parts 117 and 507. AOMS audit trail architecture directly satisfies FDA FSMA documentation requirements.</p>
+        </div>
+        <div class="domain-card">
+          <div class="domain-num">DOMAIN 04</div>
+          <h4>Process Control</h4>
+          <p>Multi-site PLC and SCADA integration using Siemens S7-1500, Allen-Bradley ControlLogix, and OSIsoft PI Historian. Standardized control architecture reduces operating costs and ensures consistency across facilities.</p>
+        </div>
+        <div class="domain-card">
+          <div class="domain-num">DOMAIN 05</div>
+          <h4>Implementation and Training</h4>
+          <p>Structured workforce development covering PLC programming, SCADA systems, vibration analysis, and alarm management. Over 60 engineers and technicians trained across multiple countries, with skills sustained after initial deployment.</p>
+        </div>
+        <div class="domain-card">
+          <div class="domain-num">DOMAIN 06</div>
+          <h4>Operational Technology Cybersecurity</h4>
+          <p>OT security architecture aligned to ANSI/ISA-62443-2-1-2024, Digital Twin integration per ISO/IEC 30186:2025, and Agentic AI guardrails per IEC 61508. Directly supports the MSc thesis research on explainable AI for SCADA cybersecurity.</p>
+        </div>
+      </div>
+
+      <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--muted);">
+        For the full peer-reviewed publication record connected to this body of work,
+        <a href="research.html" style="color: var(--gold); text-decoration: none;">visit the Research page &#8594;</a>
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- COMPARISON TABLE -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Framework Comparison</div>
+      <h2>AOMS vs. ICM at a Glance</h2>
+      <div class="comparison">
+        <div class="comparison-header">
+          <div>Attribute</div>
+          <div>AOMS</div>
+          <div>ICM</div>
+        </div>
+        <div class="comparison-row">
+          <div>Primary Focus</div>
+          <div>Predictive maintenance</div>
+          <div>Digital transformation</div>
+        </div>
+        <div class="comparison-row">
+          <div>Target Industry</div>
+          <div>Food &amp; beverage manufacturing</div>
+          <div>All manufacturing sectors</div>
+        </div>
+        <div class="comparison-row">
+          <div>Core Technology</div>
+          <div>IIoT + Machine Learning</div>
+          <div>Six-domain assessment model</div>
+        </div>
+        <div class="comparison-row">
+          <div>Requires Full Infrastructure Replacement</div>
+          <div><span class="cross">No</span></div>
+          <div><span class="cross">No</span></div>
+        </div>
+        <div class="comparison-row">
+          <div>Field-Tested</div>
+          <div><span class="check">Yes &mdash; 28 projects</span></div>
+          <div><span class="check">Yes &mdash; 28 projects</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE NAV -->
+  <div class="page-nav">
+    <div class="page-nav-inner">
+      <a href="about.html">&#8592; About</a>
+      <a href="research.html">Research &amp; Publications &#8594;</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Richard Kudjo Akrong &nbsp;|&nbsp; Former Technical Managing Director, Casabeck Engineering Services
+      &nbsp;|&nbsp; <a href="contact.html">Contact</a></p>
+    <p style="margin-top:0.5rem; font-size: 0.7rem; opacity: 0.5;">Woodbridge, Virginia, USA</p>
+  </footer>
+
+</body>
+</html>
