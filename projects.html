@@ -1,1 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Projects | Richard Kudjo Akrong</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:        #080d14;
+      --bg2:       #0e1520;
+      --bg3:       #131c2b;
+      --gold:      #c8a96e;
+      --gold-dim:  #8a7248;
+      --white:     #f0ece3;
+      --muted:     #7a8499;
+      --border:    #1e2d42;
+      --accent:    #2563a8;
+      --font-head: 'Fraunces', Georgia, serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(8, 13, 20, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      height: 62px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active {
+      color: var(--white);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 130px 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(37, 99, 168, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 168, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    .page-header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .page-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-tag::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    h1 span { color: var(--gold); }
+
+    .page-intro {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 620px;
+      line-height: 1.85;
+      font-weight: 300;
+    }
+
+    /* SECTIONS */
+    section { padding: 4.5rem 2rem; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+
+    /* TOP STATS BAR */
+    .stats-bar {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+    }
+
+    .stats-bar-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-cell {
+      text-align: center;
+      padding: 1.25rem 0.5rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-cell:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      line-height: 1.4;
+    }
+
+    /* CASE STUDY BLOCK */
+    .case-study {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .cs-header {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .cs-header-left .cs-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .cs-header-left h3 {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .cs-header-left .cs-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .cs-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .cs-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.25rem 0.6rem;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    .cs-body {
+      padding: 2rem;
+      background: var(--bg);
+    }
+
+    .cs-body p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+    }
+
+    .cs-body p:last-of-type { margin-bottom: 0; }
+    .cs-body strong { color: var(--white); font-weight: 600; }
+
+    /* OUTCOME GRID */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1.75rem 0;
+    }
+
+    .outcome-cell {
+      background: var(--bg2);
+      padding: 1.25rem;
+    }
+
+    .outcome-cell .ov {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .outcome-cell .ol {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* OUTCOME AREAS */
+    .outcome-areas {
+      display: grid;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .outcome-area {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .outcome-area:hover { border-color: var(--gold-dim); }
+
+    .oa-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg3);
+    }
+
+    .oa-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--gold);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.25rem 0.5rem;
+      letter-spacing: 0.07em;
+      flex-shrink: 0;
+    }
+
+    .oa-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .oa-body {
+      padding: 1.25rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .oa-metric {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .oa-metric .am {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .oa-metric .al {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* TECH STACK */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .tech-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .tech-card:hover { border-color: var(--gold-dim); }
+
+    .tech-card .tc-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .tech-card h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .tech-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* VALIDATION SECTION */
+    .validation-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .validation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .val-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .val-card:hover { border-color: var(--gold-dim); border-left-color: var(--gold); }
+
+    .val-card .vc-role {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .val-card h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .val-card .vc-org {
+      font-size: 0.8rem;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .val-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* US READINESS */
+    .us-section {
+      border-top: 1px solid var(--border);
+    }
+
+    .us-intro {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .us-intro p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .us-intro strong { color: var(--white); }
+
+    .us-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .us-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .us-card:hover { border-color: var(--gold-dim); }
+
+    .us-card .uc-num {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .us-card h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+
+    .us-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* DIVIDER */
+    hr.section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* PAGE NAV */
+    .page-nav {
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .page-nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .page-nav a {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity 0.2s;
+    }
+
+    .page-nav a:hover { opacity: 0.7; }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.74rem; }
+      .stats-bar-inner { grid-template-columns: repeat(3, 1fr); }
+      .stat-cell:nth-child(3) { border-right: none; }
+      .outcome-grid { grid-template-columns: repeat(2, 1fr); }
+      .oa-body { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: 1fr; }
+      .validation-grid { grid-template-columns: 1fr; }
+      .us-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+      .outcome-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 0.6rem; }
+      .nav-links a { font-size: 0.68rem; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-tag   { animation: fadeUp 0.45s ease both 0.1s; }
+    h1          { animation: fadeUp 0.45s ease both 0.2s; }
+    .page-intro { animation: fadeUp 0.45s ease both 0.32s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">RKA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="frameworks.html">Frameworks</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-inner">
+      <div class="page-tag">Field Deployments</div>
+      <h1>Global <span>Projects</span></h1>
+      <p class="page-intro">
+        28 industrial automation projects across 13 countries. Every metric on this page
+        was measured through Finance Department audits, external auditors, and
+        independently verified by direct supervisors and expert engineers.
+      </p>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-cell">
+        <div class="stat-num">28</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">13</div>
+        <div class="stat-label">Countries</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">14</div>
+        <div class="stat-label">Food &amp; Beverage Facilities in Primary Network</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Years Sustained Performance Record</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">60+</div>
+        <div class="stat-label">Engineers Trained</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIMARY CASE STUDY -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Primary Case Study</div>
+      <h2>14-Facility Food Manufacturing Network<br>West and North Africa</h2>
+
+      <div class="case-study">
+        <div class="cs-header">
+          <div class="cs-header-left">
+            <div class="cs-tag">Deployment Period</div>
+            <h3>Wilmar Africa &mdash; Regional Automation Program</h3>
+            <div class="cs-sub">2018 &mdash; 2024 &nbsp;|&nbsp; West and North Africa &nbsp;|&nbsp; 14 Facilities</div>
+          </div>
+          <div class="cs-badges">
+            <span class="cs-badge">AOMS Deployed</span>
+            <span class="cs-badge">ICM Deployed</span>
+            <span class="cs-badge">Audited Outcomes</span>
+            <span class="cs-badge">ISO 13374</span>
+          </div>
+        </div>
+        <div class="cs-body">
+          <p>
+            This is the primary field validation of the AOMS and ICM frameworks.
+            Across 14 food and beverage manufacturing facilities, both frameworks were
+            deployed, refined, and sustained over a six-year operating record.
+            All performance data was measured and reported through
+            <strong>Finance Department audits and external auditors</strong>, as independently
+            confirmed by the Regional Technical Head who supervised the work directly.
+          </p>
+          <p>
+            The deployment covered PLC and SCADA integration, predictive maintenance
+            implementation, energy management, power quality optimization, worker safety
+            systems, and workforce training. The platforms used are the
+            <strong>identical platforms dominant in U.S. food manufacturing</strong>:
+            Siemens S7-1500, Allen-Bradley ControlLogix, and OSIsoft PI Historian.
+            The standards applied are the same standards governing U.S. food manufacturing automation.
+          </p>
+          <p>
+            267 work orders were managed during an 18-month multi-site validation period,
+            with a <strong>96.25% completion rate</strong> and <strong>99.67% budget accuracy</strong>.
+            These figures were independently documented in operational records.
+          </p>
+
+          <!-- KEY OUTCOMES GRID -->
+          <div class="outcome-grid">
+            <div class="outcome-cell">
+              <div class="ov">87%</div>
+              <div class="ol">OEE achieved, up from 68% baseline. Exceeds 85% global food manufacturing benchmark.</div>
+            </div>
+            <div class="outcome-cell">
+              <div class="ov">45%</div>
+              <div class="ol">Reduction in unplanned downtime, sustained over 6-year operating record.</div>
+            </div>
+            <div class="outcome-cell">
+              <div class="ov">4%</div>
+              <div class="ol">Product waste rate, reduced from 12% baseline across production lines.</div>
+            </div>
+            <div class="outcome-cell">
+              <div class="ov">90%</div>
+              <div class="ol">Reduction in emergency repair incidents at select facilities.</div>
+            </div>
+            <div class="outcome-cell">
+              <div class="ov">40%</div>
+              <div class="ol">Extension in equipment asset life across the network.</div>
+            </div>
+            <div class="outcome-cell">
+              <div class="ov">20%</div>
+              <div class="ol">Reduction in operating costs through engineering standardization across 14 sites.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- OUTCOME AREAS -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Verified Outcome Areas</div>
+      <h2>Performance by Domain</h2>
+      <p style="font-size: 0.9rem; color: var(--muted); max-width: 640px; margin-bottom: 0.5rem; line-height: 1.85;">
+        Each area below corresponds directly to a domain within the ICM framework.
+        All figures are independently verified through audited operational records,
+        expert letters, and Finance Department reports.
+      </p>
+
+      <div class="outcome-areas">
+
+        <!-- ENERGY -->
+        <div class="outcome-area">
+          <div class="oa-header">
+            <span class="oa-tag">DOMAIN 02</span>
+            <span class="oa-title">Energy Management</span>
+          </div>
+          <div class="oa-body">
+            <div class="oa-metric">
+              <div class="am">$1.25M</div>
+              <div class="al">Annual energy savings across the 14-facility network</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">$450K</div>
+              <div class="al">Annual utility demand penalties eliminated through power factor correction</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">0.98</div>
+              <div class="al">Power factor achieved, up from 0.72&ndash;0.78 baseline</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">15.5%</div>
+              <div class="al">Reduction in electricity consumption per unit produced</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">19.6%</div>
+              <div class="al">Reduction in steam consumption per unit produced</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">18.4%</div>
+              <div class="al">Reduction in water consumption per unit produced</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SAFETY -->
+        <div class="outcome-area">
+          <div class="oa-header">
+            <span class="oa-tag">DOMAIN 03</span>
+            <span class="oa-title">Safety and Compliance</span>
+          </div>
+          <div class="oa-body">
+            <div class="oa-metric">
+              <div class="am">85%</div>
+              <div class="al">Reduction in electrical injury rates following remote switchgear deployment</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">Zero</div>
+              <div class="al">Arc flash incidents recorded after remote operation systems were deployed at 11 kV and 33 kV switchgear</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">1.2 MW</div>
+              <div class="al">Energy savings at a single facility from integrated safety and energy automation</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">22%</div>
+              <div class="al">Facility energy consumption reduction at the same site</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROCESS CONTROL -->
+        <div class="outcome-area">
+          <div class="oa-header">
+            <span class="oa-tag">DOMAIN 04</span>
+            <span class="oa-title">Process Control</span>
+          </div>
+          <div class="oa-body">
+            <div class="oa-metric">
+              <div class="am">1,200</div>
+              <div class="al">Metric tons per day plant throughput, increased from 1,000 without infrastructure expansion</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">&#177;0.2%</div>
+              <div class="al">Inventory accuracy achieved via Automatic Tank Gauging (ATG), improved from &#177;2% baseline</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">96.25%</div>
+              <div class="al">Work order completion rate across 267 orders in 18-month multi-site validation</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">99.67%</div>
+              <div class="al">Budget accuracy across the same 18-month validation period</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRAINING -->
+        <div class="outcome-area">
+          <div class="oa-header">
+            <span class="oa-tag">DOMAIN 05</span>
+            <span class="oa-title">Implementation and Training</span>
+          </div>
+          <div class="oa-body">
+            <div class="oa-metric">
+              <div class="am">60+</div>
+              <div class="al">Engineers and technicians trained across multiple countries in PLC, SCADA, vibration analysis, and alarm management</div>
+            </div>
+            <div class="oa-metric">
+              <div class="am">Multi-site</div>
+              <div class="al">Training delivered across facilities in West and North Africa, with skills sustained after initial deployment</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- TECHNOLOGY STACK -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Technology Stack</div>
+      <h2>Platforms Deployed Across All Projects</h2>
+      <p style="font-size: 0.9rem; color: var(--muted); max-width: 640px; line-height: 1.85; margin-bottom: 0.5rem;">
+        These are not legacy or regional platforms. They are the identical systems
+        dominant in U.S. food manufacturing, as independently confirmed by
+        engineering experts with direct U.S. and Canadian food industry experience.
+      </p>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tc-label">PLC Systems</div>
+          <h4>Siemens S7-1500 &amp; Allen-Bradley ControlLogix / CompactLogix</h4>
+          <p>The two dominant PLC platforms in U.S. food manufacturing. Deployed and configured across all 14 primary network facilities. Certifications held for both platforms.</p>
+        </div>
+        <div class="tech-card">
+          <div class="tc-label">SCADA</div>
+          <h4>Siemens WinCC</h4>
+          <p>Supervisory control and data acquisition systems integrated with the S7-1500 PLC architecture. Used for real-time monitoring, alarm management aligned to ANSI/ISA-18.2-2016.</p>
+        </div>
+        <div class="tech-card">
+          <div class="tc-label">Historian</div>
+          <h4>OSIsoft PI Historian</h4>
+          <p>Industrial data historian providing the continuous operational data stream that feeds AOMS predictive diagnostics and generates the audit trail required for FSMA preventive control documentation.</p>
+        </div>
+        <div class="tech-card">
+          <div class="tc-label">Energy Monitoring</div>
+          <h4>Schneider Electric Power Logic</h4>
+          <p>Energy metering and power quality monitoring integrated across all facilities. Provided the real-time data foundation for the power factor correction work that eliminated $450,000 in annual utility demand penalties.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- INDEPENDENT VALIDATION -->
+  <section class="validation-section">
+    <div class="section-inner">
+      <div class="section-label">Independent Validation</div>
+      <h2>Expert Confirmation of Results</h2>
+      <p style="font-size: 0.9rem; color: var(--muted); max-width: 640px; line-height: 1.85; margin-bottom: 1.5rem;">
+        Six independent experts confirmed the outcomes documented on this page.
+        Each writes on the basis of direct professional observation or independent
+        scholarly review, with no financial relationship with the petitioner.
+      </p>
+      <div class="validation-grid">
+
+        <div class="val-card">
+          <div class="vc-role">Safety, Health &amp; Sustainability Manager</div>
+          <div class="vc-org">Olam Agri Nigeria (formerly Wilmar Africa)</div>
+          <p>Confirmed arc flash elimination, 85% injury rate reduction, 1.2 MW energy savings, 22% facility consumption reduction, and throughput increase from 1,000 to 1,200 metric tons per day without infrastructure expansion.</p>
+        </div>
+
+        <div class="val-card">
+          <div class="vc-role">Technical Head, West &amp; North Africa</div>
+          <div class="vc-org">Wilmar Africa</div>
+          <p>Direct supervisor from 2018 to 2024 across all 14 facilities. Confirmed all primary outcome metrics through Finance Department records: OEE, downtime, waste reduction, energy savings, and training figures.</p>
+        </div>
+
+        <div class="val-card">
+          <div class="vc-role">Plant Manager</div>
+          <div class="vc-org">Air Liquide Canada (formerly Wilmar Africa)</div>
+          <p>Personally witnessed the Ghana facility commission in 2018. Confirmed six-plus years of continuous operation, IECEx equivalence to NFPA 70 Article 500, and $1.25 million in annual energy savings across the network.</p>
+        </div>
+
+        <div class="val-card">
+          <div class="vc-role">Chief Executive Officer</div>
+          <div class="vc-org">Authorized Siemens, Schneider Electric &amp; Endress+Hauser Partner, Ghana</div>
+          <p>Confirmed that deployed designs became reference standards for Wilmar's multi-country operations, with ATG inventory accuracy improving from &plusmn;2% to &plusmn;0.2%.</p>
+        </div>
+
+        <div class="val-card">
+          <div class="vc-role">Ph.D. Research Associate</div>
+          <div class="vc-org">South Carolina State University, USA</div>
+          <p>Independent academic assessment confirming AOMS is among the first peer-reviewed frameworks specifically validated in food-processing environments across multiple facilities, with no comparable framework in existing literature.</p>
+        </div>
+
+        <div class="val-card">
+          <div class="vc-role">Cross-Regional Industry Expert</div>
+          <div class="vc-org">Industrial Automation Firm, Malaysia</div>
+          <p>Confirmed the technical significance and replicability of the AOMS and ICM frameworks across international industrial markets, providing cross-regional validation of the transferability of outcomes.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- U.S. READINESS -->
+  <section class="us-section">
+    <div class="section-inner">
+      <div class="section-label">U.S. Application</div>
+      <h2>Why These Results Transfer Directly<br>to U.S. Food Manufacturing</h2>
+
+      <div class="us-intro">
+        <p>
+          The 14-facility network where AOMS and ICM were validated operated under
+          <strong>constrained infrastructure and limited capital</strong>. U.S. food manufacturing
+          facilities run on the same platforms, under the same international standards,
+          but with more stable infrastructure and greater capital access.
+          The documented outcomes represent a <strong>conservative baseline</strong>
+          for what is achievable in U.S. SMFMEs. Applied across even a modest share
+          of the more than 80% of U.S. food processing establishments that are
+          small and medium-sized enterprises, these performance improvements translate
+          into billions of dollars in annual savings, measurable reductions in the
+          sector's 60,000 annual workplace injuries, and direct progress toward
+          FDA FSMA compliance and DOE energy efficiency targets.
+        </p>
+      </div>
+
+      <div class="us-grid">
+        <div class="us-card">
+          <div class="uc-num">PHASE 01</div>
+          <h4>Pilot Deployment</h4>
+          <p>Predictive maintenance and energy optimization modules deployed at select U.S. facilities to establish baseline performance improvements under U.S. operating conditions.</p>
+        </div>
+        <div class="us-card">
+          <div class="uc-num">PHASE 02</div>
+          <h4>Network Expansion</h4>
+          <p>Full AOMS and ICM deployment across additional facilities, incorporating workforce training, FSMA compliance documentation integration, and system standardization.</p>
+        </div>
+        <div class="us-card">
+          <div class="uc-num">PHASE 03</div>
+          <h4>Sector Dissemination</h4>
+          <p>Peer-reviewed publications, industry collaboration, and engagement with NIST MEP and Manufacturing USA programs enabling broad adoption across SMFMEs nationwide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE NAV -->
+  <div class="page-nav">
+    <div class="page-nav-inner">
+      <a href="research.html">&#8592; Research</a>
+      <a href="contact.html">Contact &#8594;</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Richard Kudjo Akrong &nbsp;|&nbsp; Former Technical Managing Director, Casabeck Engineering Services
+      &nbsp;|&nbsp; <a href="contact.html">Contact</a></p>
+    <p style="margin-top:0.5rem; font-size: 0.7rem; opacity: 0.5;">Woodbridge, Virginia, USA</p>
+  </footer>
+
+</body>
+</html>
