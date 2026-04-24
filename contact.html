@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Richard Kudjo Akrong</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080d14;
+      --bg2:       #0e1520;
+      --bg3:       #131c2b;
+      --gold:      #c8a96e;
+      --gold-dim:  #8a7248;
+      --white:     #f0ece3;
+      --muted:     #7a8499;
+      --border:    #1e2d42;
+      --accent:    #2563a8;
+      --font-head: 'Fraunces', Georgia, serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(8, 13, 20, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      height: 62px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active {
+      color: var(--white);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 130px 2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(37, 99, 168, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 168, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    .page-header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .page-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .page-tag::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    h1 span { color: var(--gold); }
+
+    .page-intro {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.85;
+      font-weight: 300;
+    }
+
+    /* MAIN LAYOUT */
+    .contact-layout {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4.5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* LEFT PANEL */
+    .contact-info { }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .contact-info p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+
+    /* INQUIRY TYPES */
+    .inquiry-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .inquiry-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.9rem 1rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color 0.2s;
+    }
+
+    .inquiry-item:hover { border-color: var(--gold-dim); }
+
+    .inquiry-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.45rem;
+    }
+
+    .inquiry-item span {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .inquiry-item span strong {
+      display: block;
+      color: var(--white);
+      font-size: 0.86rem;
+      margin-bottom: 0.1rem;
+    }
+
+    /* LOCATION BLOCK */
+    .location-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .location-block .lb-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .location-block p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    .location-block strong { color: var(--white); }
+
+    /* FORM PANEL */
+    .contact-form-wrap { }
+
+    .form-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem;
+    }
+
+    .form-card .fc-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .form-card .fc-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold-dim);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    .form-group select option {
+      background: var(--bg3);
+      color: var(--white);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+      line-height: 1.6;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      border-radius: 3px;
+      padding: 0.85rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-submit:hover {
+      background: #e0be88;
+      transform: translateY(-1px);
+    }
+
+    .form-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.6;
+      font-family: var(--font-mono);
+    }
+
+    /* SUCCESS STATE */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 1rem;
+    }
+
+    .form-success .fs-icon {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .form-success h3 {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-success p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.74rem; }
+      .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { gap: 0.6rem; }
+      .nav-links a { font-size: 0.68rem; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-tag   { animation: fadeUp 0.45s ease both 0.1s; }
+    h1          { animation: fadeUp 0.45s ease both 0.2s; }
+    .page-intro { animation: fadeUp 0.45s ease both 0.32s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">RKA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="frameworks.html">Frameworks</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-inner">
+      <div class="page-tag">Get in Touch</div>
+      <h1>Contact <span>Richard</span></h1>
+      <p class="page-intro">
+        For research collaboration, academic inquiries, framework information,
+        or professional correspondence. All inquiries are reviewed personally.
+      </p>
+    </div>
+  </div>
+
+  <!-- CONTACT LAYOUT -->
+  <div class="contact-layout">
+
+    <!-- LEFT: INFO -->
+    <div class="contact-info">
+      <div class="section-label">What to Expect</div>
+      <h2>Welcome Inquiries</h2>
+      <p>
+        This page is for professional and academic correspondence related to
+        Richard's research, published frameworks, and engineering work.
+      </p>
+
+      <div class="inquiry-list">
+        <div class="inquiry-item">
+          <div class="inquiry-dot"></div>
+          <span>
+            <strong>Research Collaboration</strong>
+            Academic researchers interested in the AOMS or ICM frameworks, industrial automation, or SCADA cybersecurity.
+          </span>
+        </div>
+        <div class="inquiry-item">
+          <div class="inquiry-dot"></div>
+          <span>
+            <strong>Framework Information</strong>
+            Organizations seeking technical information about the AOMS or ICM frameworks and their application in food manufacturing environments.
+          </span>
+        </div>
+        <div class="inquiry-item">
+          <div class="inquiry-dot"></div>
+          <span>
+            <strong>Academic Correspondence</strong>
+            Faculty, graduate researchers, and journal editors on topics covered in Richard's published and submitted work.
+          </span>
+        </div>
+        <div class="inquiry-item">
+          <div class="inquiry-dot"></div>
+          <span>
+            <strong>Professional Networking</strong>
+            IEEE, ISA, and NFPA members and engineering professionals in industrial automation and critical infrastructure.
+          </span>
+        </div>
+      </div>
+
+      <div class="location-block">
+        <div class="lb-label">Location</div>
+        <p>
+          <strong>Woodbridge, Virginia, USA</strong><br>
+          MSc, American National University<br>
+          Salem Campus, Virginia
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="contact-form-wrap">
+      <div class="form-card">
+        <div class="fc-label">Send a Message</div>
+
+        <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="affiliation">Organization / Affiliation</label>
+            <input type="text" id="affiliation" name="affiliation" placeholder="University, company, or institution" />
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Inquiry Type</label>
+            <select id="subject" name="subject" required>
+              <option value="" disabled selected>Select inquiry type</option>
+              <option value="Research Collaboration">Research Collaboration</option>
+              <option value="Framework Information">Framework Information &mdash; AOMS or ICM</option>
+              <option value="Academic Correspondence">Academic Correspondence</option>
+              <option value="Professional Networking">Professional Networking</option>
+              <option value="Other">Other Professional Inquiry</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Describe your inquiry..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">Send Message</button>
+
+          <p class="form-note">
+            Your message goes directly to Richard. Replies are typically within 3 to 5 business days.
+          </p>
+
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="fs-icon">&#10003;</div>
+          <h3>Message Sent</h3>
+          <p>Thank you for reaching out. Richard will review your message and respond within 3 to 5 business days.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Richard Kudjo Akrong &nbsp;|&nbsp; Former Technical Managing Director, Casabeck Engineering Services
+      &nbsp;|&nbsp; Woodbridge, Virginia, USA</p>
+    <p style="margin-top: 0.5rem; font-size: 0.7rem; opacity: 0.5;">
+      IEEE Senior Member &nbsp;|&nbsp; ISA Senior Member &nbsp;|&nbsp; IECEx &nbsp;|&nbsp; OSHA &nbsp;|&nbsp; NFPA
+    </p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try again.');
+        }
+      } catch (err) {
+        alert('Something went wrong. Please try again.');
+      }
+    });
+  </script>
+
+</body>
+</html>
